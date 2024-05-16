@@ -33,4 +33,11 @@ public class UserController {
 		return userService.getAllUsers();
 	}
 
+	// add users through Kafka
+	@PostMapping("/addUserKafka")
+	public String addUser(@RequestBody List<Users> users) {
+		return null;
+
+	}
+
 }
