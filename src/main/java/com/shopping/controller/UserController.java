@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shopping.entity.Users;
+import com.shopping.kafka.UserKafkaService;
 import com.shopping.service.UserService;
 
 @RestController
@@ -17,6 +18,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private UserKafkaService kafkaService;
 
 	@GetMapping("/users/{id}")
 	public Users getUserById(@PathVariable int id) {
@@ -34,9 +38,13 @@ public class UserController {
 	}
 
 	// add users through Kafka
-	@PostMapping("/addUserKafka")
+
+	@PostMapping(value = "/add")
 	public String addUser(@RequestBody List<Users> users) {
-		return null;
+		System.out.println("user services ");
+		kafkaService.AddUser(users);
+
+		return "user added ";
 
 	}
 
